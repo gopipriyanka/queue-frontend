@@ -1,0 +1,153 @@
+/* Overall body for dashboard */
+.student-dashboard {
+  width: 100%;
+  min-height: 100vh;
+  background: #f4f6f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+/* Header */
+.dashboard-header {
+  width: 95.6%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.dashboard-header button {
+  background-color: #ff4d4d;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.dashboard-header button:hover {
+  background-color: #e60000;
+}
+
+/* Main content layout */
+.dashboard-content {
+  display: flex;
+  gap: 20px;
+  padding: 30px;
+  flex-wrap: wrap; /* responsive for smaller screens */
+}
+
+/* Submit Ticket panel */
+.submit-ticket-container {
+  flex: 1 1 300px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-height: 300px;
+}
+
+.submit-ticket-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Tickets list panel */
+.tickets-container {
+  flex: 2 1 400px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-height: 300px;
+}
+
+.tickets-container h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Tickets list styling */
+.tickets-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.tickets-container li {
+  background: #f8f9fa;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Scrollbar for tickets */
+.tickets-container ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tickets-container ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+
+/* Submit Ticket textarea */
+.submit-ticket-container textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.submit-ticket-container button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.2s;
+}
+
+.submit-ticket-container button:hover {
+  background-color: #218838;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .dashboard-content {
+    flex-direction: column;
+  }
+
+  .submit-ticket-container,
+  .tickets-container {
+    width: 100%;
+  }
+}

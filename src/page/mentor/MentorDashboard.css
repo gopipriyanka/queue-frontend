@@ -1,0 +1,132 @@
+/* PAGE BASE */
+.mentor-dashboard {
+  width: 94%;
+  min-height: 100vh;
+  background: #f0f2f5;
+  padding: 20px 40px;
+  font-family: "Inter", Arial, sans-serif;
+  color: #222;
+}
+
+/* HEADER */
+.mentor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.mentor-header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+.logout-btn {
+  background: #d9534f;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #c64541;
+}
+
+/* SECTION TITLE */
+.section-title {
+  margin-top: 35px;
+  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* TICKET LIST GRID */
+.ticket-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* TICKET CARD */
+.ticket-card {
+  background: white;
+  border-radius: 10px;
+  padding: 18px 20px;
+  border: 1px solid #e4e4e4;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  transition: 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ticket-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+}
+
+/* TICKET TEXT */
+.ticket-info strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+}
+
+.ticket-info span {
+  color: #555;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* BUTTON ROW */
+.ticket-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* BUTTONS */
+.claim-btn,
+.resolve-btn {
+  border: none;
+  padding: 7px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.claim-btn {
+  background: #0066ff;
+  color: #fff;
+}
+
+.claim-btn:hover {
+  background: #0052cc;
+}
+
+.resolve-btn {
+  background: #28a745;
+  color: white;
+}
+
+.resolve-btn:hover {
+  background: #1e8a39;
+}
+
+.empty-text {
+  color: #777;
+  font-size: 14px;
+  padding-left: 5px;
+}
