@@ -3,7 +3,7 @@ import { useSocket } from "../../context/SocketContext";
 import { AuthContext } from "../../context/AuthContext";
 import { getPendingTickets, getMyQueue } from "../../api/ticketApi";
 import { useNavigate } from "react-router-dom";
-import './MentorDashboard.css';
+import "./MentorDashboard.css";
 
 export default function MentorDashboard() {
   const { user, logout } = useContext(AuthContext);
@@ -12,15 +12,11 @@ export default function MentorDashboard() {
   const [myQueue, setMyQueue] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch initial tickets
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const pending = await getPendingTickets();
-        setPendingTickets(pending);
-
-        const queue = await getMyQueue();
-        setMyQueue(queue);
+        setPendingTickets(await getPendingTickets());
+        setMyQueue(await getMyQueue());
       } catch (err) {
         console.error("Failed to fetch tickets:", err);
       }
@@ -28,52 +24,35 @@ export default function MentorDashboard() {
     fetchTickets();
   }, []);
 
-  // Real-time updates
   useEffect(() => {
     if (!socket) return;
 
-    const handleNewTicket = (ticket) => {
-      setPendingTickets((prev) => [ticket, ...prev]);
-    };
+    socket.on("new_ticket", (ticket) =>
+      setPendingTickets((prev) => [ticket, ...prev])
+    );
 
-    const handleTicketClaimed = (ticket) => {
+    socket.on("ticket_claimed", (ticket) => {
       setPendingTickets((prev) => prev.filter((t) => t._id !== ticket._id));
-
       if (ticket.mentor._id === user._id) {
         setMyQueue((prev) => [ticket, ...prev]);
       }
-    };
+    });
 
-    const handleTicketResolved = (ticket) => {
+    socket.on("ticket_resolved", (ticket) => {
       setMyQueue((prev) =>
         prev.map((t) =>
           t._id === ticket._id ? { ...t, status: "resolved" } : t
         )
       );
-    };
-
-    socket.on("new_ticket", handleNewTicket);
-    socket.on("ticket_claimed", handleTicketClaimed);
-    socket.on("ticket_resolved", handleTicketResolved);
+    });
 
     return () => {
-      socket.off("new_ticket", handleNewTicket);
-      socket.off("ticket_claimed", handleTicketClaimed);
-      socket.off("ticket_resolved", handleTicketResolved);
+      socket.off("new_ticket");
+      socket.off("ticket_claimed");
+      socket.off("ticket_resolved");
     };
   }, [socket, user]);
 
-  // Claim a ticket
-  const claimTicket = (ticketId) => {
-    if (socket) socket.emit("claim_ticket", { ticketId });
-  };
-
-  // Resolve a ticket
-  const resolveTicket = (ticketId) => {
-    if (socket) socket.emit("resolve_ticket", { ticketId });
-  };
-
-  // Logout
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -81,16 +60,18 @@ export default function MentorDashboard() {
 
   return (
     <div className="mentor-dashboard">
-
       {/* HEADER */}
-      <div className="mentor-header">
-        <h1>Mentor Dashboard</h1>
+      <header className="mentor-header">
+        <div>
+          <h1>Mentor Dashboard</h1>
+          <p>Welcome, {user?.name}</p>
+        </div>
         <button className="logout-btn" onClick={handleLogout}>
           Logout
         </button>
-      </div>
+      </header>
 
-      {/* PENDING TICKETS */}
+      {/* PENDING */}
       <h2 className="section-title">Pending Tickets</h2>
       {pendingTickets.length === 0 && (
         <p className="empty-text">No pending tickets</p>
@@ -101,11 +82,12 @@ export default function MentorDashboard() {
           <li className="ticket-card" key={t._id}>
             <div className="ticket-info">
               <strong>{t.description}</strong>
-              <span>Status: {t.status} | Student: {t.student.name}</span>
+              <span>Student: {t.student.name}</span>
             </div>
 
-            <div className="ticket-actions">
-              <button className="claim-btn" onClick={() => claimTicket(t._id)}>
+            <div className="ticket-footer">
+              <span className="status-badge pending">Pending</span>
+              <button className="claim-btn" onClick={() => socket.emit("claim_ticket", { ticketId: t._id })}>
                 Claim
               </button>
             </div>
@@ -124,14 +106,18 @@ export default function MentorDashboard() {
           <li className="ticket-card" key={t._id}>
             <div className="ticket-info">
               <strong>{t.description}</strong>
-              <span>Status: {t.status} | Student: {t.student.name}</span>
+              <span>Student: {t.student.name}</span>
             </div>
 
-            <div className="ticket-actions">
+            <div className="ticket-footer">
+              <span className={`status-badge ${t.status}`}>
+                {t.status}
+              </span>
+
               {t.status === "claimed" && (
                 <button
                   className="resolve-btn"
-                  onClick={() => resolveTicket(t._id)}
+                  onClick={() => socket.emit("resolve_ticket", { ticketId: t._id })}
                 >
                   Resolve
                 </button>

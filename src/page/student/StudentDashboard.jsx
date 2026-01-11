@@ -4,15 +4,14 @@ import { useSocket } from "../../context/SocketContext";
 import { AuthContext } from "../../context/AuthContext";
 import { getMyTickets } from "../../api/ticketApi";
 import { useNavigate } from "react-router-dom";
-import './StudentDashboard.css';
+import "./StudentDashboard.css";
 
 export default function StudentDashboard() {
-  const { user, logout } = useContext(AuthContext); // use logout instead of setUser
+  const { user, logout } = useContext(AuthContext);
   const { socket } = useSocket();
   const [tickets, setTickets] = useState([]);
   const navigate = useNavigate();
 
-  // Load existing tickets
   useEffect(() => {
     const fetchTickets = async () => {
       try {
@@ -25,7 +24,6 @@ export default function StudentDashboard() {
     fetchTickets();
   }, []);
 
-  // Listen for ticket updates via socket
   useEffect(() => {
     if (!socket) return;
 
@@ -40,52 +38,67 @@ export default function StudentDashboard() {
     };
 
     socket.on("ticket_status_update", handleStatusUpdate);
-
-    return () => {
-      socket.off("ticket_status_update", handleStatusUpdate);
-    };
+    return () => socket.off("ticket_status_update", handleStatusUpdate);
   }, [socket]);
 
-  // Logout function
   const handleLogout = () => {
-    logout();           // calls AuthContext's logout
-    navigate("/login"); // redirect to login
+    logout();
+    navigate("/login");
   };
 
   return (
     <div className="student-dashboard">
-      {/* Header */}
-      <div className="dashboard-header">
-        <h1>Welcome, {user?.name}</h1>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
+      {/* Top Navbar */}
+      <header className="dashboard-header">
+        <div>
+          <h1>Student Dashboard</h1>
+          <p>Welcome back, {user?.name}</p>
+        </div>
+        <button onClick={handleLogout} className="logout-btn">
+          Logout
+        </button>
+      </header>
 
-      {/* Main content */}
+      {/* Main Layout */}
       <div className="dashboard-content">
-        {/* Submit Ticket panel */}
-        <div className="submit-ticket-container">
-          <h2>Submit a Ticket</h2>
+        {/* Submit Ticket */}
+        <section className="card submit-ticket-container">
+          <h2>Raise a Support Ticket</h2>
           <SubmitTicket
             onTicketCreated={(newTicket) =>
               setTickets((prev) => [newTicket, ...prev])
             }
           />
-        </div>
+        </section>
 
-        {/* Tickets list panel */}
-        <div className="tickets-container">
+        {/* Ticket List */}
+        <section className="card tickets-container">
           <h2>My Tickets</h2>
-          <ul>
-            {tickets.map((t) => (
-              <li key={t._id}>
-                <div>
-                  <strong>{t.description}</strong> - <em>{t.status}</em>
-                  {t.mentor && <span> (Mentor: {t.mentor.name})</span>}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+
+          {tickets.length === 0 ? (
+            <p className="empty-text">No tickets submitted yet.</p>
+          ) : (
+            <ul className="ticket-list">
+              {tickets.map((t) => (
+                <li key={t._id} className="ticket-item">
+                  <div className="ticket-info">
+                    <p className="ticket-desc">{t.description}</p>
+                    {t.mentor && (
+                      <span className="mentor">
+                        Mentor: {t.mentor.name}
+                      </span>
+                    )}
+                  </div>
+
+                  <span className={`status-badge ${t.status.toLowerCase()}`}>
+                    {t.status}
+                  </span>
+
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </div>
     </div>
   );
