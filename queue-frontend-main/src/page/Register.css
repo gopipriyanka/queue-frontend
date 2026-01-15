@@ -1,0 +1,185 @@
+/* register.css */
+
+.register-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #007bff, #00cc66);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden; 
+}
+
+
+.register-card {
+  background: #ffffff;
+  width: 370px;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto; 
+}
+
+
+.register-card h2 {
+  margin-bottom: 5px;
+  font-size: 24px;
+  color: #333;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 18px;
+}
+
+
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+
+.form-group {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.3);
+}
+
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 12px;
+  border: 2px solid #555;
+  border-radius: 12px / 8px;
+  cursor: pointer;
+  background: transparent;
+}
+
+
+.eye-icon.open::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #555;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.eye-icon.closed::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #555;
+  top: 50%;
+  left: -3px;
+  transform: rotate(-25deg);
+}
+
+
+.register-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.register-btn:hover {
+  background-color: #0056b3;
+}
+
+.register-btn:disabled {
+  background-color: #8ab4f8;
+  cursor: not-allowed;
+}
+
+
+.login-link {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.login-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 400px) {
+  .register-card {
+    width: 90%;
+    padding: 20px;
+  }
+}
+
+
+.Toastify__toast-container {
+  z-index: 9999 !important;
+}

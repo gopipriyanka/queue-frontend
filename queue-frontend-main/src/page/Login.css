@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+}
+
+.login-container {
+  height: 93.4vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #007bff, #00cc66);
+  padding: 20px;
+}
+
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 14px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.4s ease;
+}
+
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+}
+
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.login-card label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #dce0e5;
+  border-radius: 8px;
+  background: #f3f7ff;
+  outline: none;
+  margin-bottom: 6px;
+}
+
+.login-card input:focus {
+  border-color: #007bff;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+
+.password-wrapper input {
+  padding-right: 42px;
+}
+
+
+.eye-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 12px;
+  border: 2px solid #555;
+  border-radius: 12px / 8px;
+  cursor: pointer;
+}
+
+
+.eye-icon.open::before {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #555;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.eye-icon.closed::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 2px;
+  background: #555;
+  top: 50%;
+  left: -3px;
+  transform: rotate(-25deg);
+}
+
+
+.error {
+  font-size: 12px;
+  color: #d93025;
+  margin-bottom: 10px;
+}
+
+
+.login-card button {
+  margin-top: 12px;
+  padding: 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.login-card button:hover {
+  background: #005fcc;
+}
+
+
+.login-card p {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-card a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-card a:hover {
+  text-decoration: underline;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 22px 18px;
+  }
+}
